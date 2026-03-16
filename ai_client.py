@@ -55,7 +55,6 @@ def consultar_mis_tareas(token_firebase):
     except Exception as e:
         return {"error": str(e)}
 
-
 # 3. Configuracion de la IA
 
 API_KEY = "AIzaSyDoehzPkT0UaA8_8OuZZHtpt1WGNw2DaDc"
