@@ -12,3 +12,20 @@ def login_usuario():
     password = getpass.getpass("Contraseña: ")
 
     url_login = "http://127.0.0.1:8000/api/auth/login/"
+    
+    try:
+        response = requests.post(
+            url_login,
+            json={"email": email, "password": password}
+        )
+
+        if response.status_code == 200:
+            print("Usuario loggeado correctamente")
+            return response.json().get("token")
+
+        print(f"Error: {response.json().get('error')}")
+
+    except Exception as e:
+        print("Error de conexion:", e)
+
+    return None
