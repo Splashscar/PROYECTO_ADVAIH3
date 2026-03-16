@@ -1,0 +1,74 @@
+GET  http://127.0.0.1:8000/api/eventos/
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjczMmNhOTY3MTNiMWRkMTcyMzg1MDg0Y2U5ZjQzODFhZDAwY2VjZTQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJveWVjdG8tYWR2YWloIiwiYXVkIjoicHJveWVjdG8tYWR2YWloIiwiYXV0aF90aW1lIjoxNzczNjY4NzI2LCJ1c2VyX2lkIjoiZFJMb3RlQnRvYllwb3Z3VXJCVlVmNTM1V2NGMyIsInN1YiI6ImRSTG90ZUJ0b2JZcG92d1VyQlZVZjUzNVdjRjMiLCJpYXQiOjE3NzM2Njg3MjYsImV4cCI6MTc3MzY3MjMyNiwiZW1haWwiOiJ5ZWlzb25AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInllaXNvbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.k6otYa2ecZxPB9E3JEDOSnmEPzFZ8fIyIKBO81_8axYSDA9U3pCNg32FqO3P307P75ECDCMOjLTg0g-DnWdI0211Yid3CaboI25XPidtW_0c5pxXJWN5TsKckKtBh29huJERWNtXiUi8KKh-cO-kpLDeOFvY6jweS858b1fWJboB-I4Ia-9q5671gwdGuEjM7TMnywwujHDwROyJeJaRFDn1ejkGQKvffKIODo17mmYX4z4EcAW0PsF4nA04y_Qvf-LgSk7eZRmp1r0gSPLJdgcuQuVEO1MK0poMGAHIQ9lPfZTtX9fnEwG3mUQ3mPI_8vIbi4UYvi6Bk3lX4iLiYg
+
+###crear un nuevo evento (POST)
+
+POST   http://127.0.0.1:8000/api/eventos/
+Content-Type: application/json
+
+{
+    "titulo":"Mi primer evento",
+    "descripcion":"evento 1",
+    "fecha":"1 de marzo 2026",
+    "lugar":"centro de mosquera",
+}
+
+###actualizar vento (PUT)
+PUT http://127.0.0.1:8000/api/eventos/
+Content-Type:application/json
+
+{
+    "titulo":"Mi primer evento deportivo",
+    "descripcion":"entrada gratis",
+    "fecha":"30 de marzo 2026",
+    "lugar":"centro de mosquera villa olimpica",
+}
+
+###eleminar evento
+DELETE   http://127.0.0.1:8000/api/eventos/
+
+###1. registrar un nuevo usuario
+
+POST  http://127.0.0.1:8000/api/auth/registro/
+Content-Type: application/json
+
+{
+    "email":"yeison@gmail.com",
+    "password":"1234567890"
+}
+
+###2. iniciar sesion para conseguir el token (POST)
+
+POST  http://127.0.0.1:8000/api/auth/login/
+Content-Type: application/json
+
+{
+    "email":"yeison@gmail.com",
+    "password":"1234567890"
+}
+###3. crear un evento USANDO EL TOKEN(POST)
+
+POST http://127.0.0.1:8000/api/eventos/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjczMmNhOTY3MTNiMWRkMTcyMzg1MDg0Y2U5ZjQzODFhZDAwY2VjZTQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJveWVjdG8tYWR2YWloIiwiYXVkIjoicHJveWVjdG8tYWR2YWloIiwiYXV0aF90aW1lIjoxNzczNjY3MzU2LCJ1c2VyX2lkIjoiZFJMb3RlQnRvYllwb3Z3VXJCVlVmNTM1V2NGMyIsInN1YiI6ImRSTG90ZUJ0b2JZcG92d1VyQlZVZjUzNVdjRjMiLCJpYXQiOjE3NzM2NjczNTYsImV4cCI6MTc3MzY3MDk1NiwiZW1haWwiOiJ5ZWlzb25AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInllaXNvbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.oPwyIg5yVTDE9actEjDOJVYnrcmIeqM9OvmYYitYziFOpGhr5ynQW47M36x7XwcCsDNdZX1LJrsnhhXtWolGQXRDpM7KPnhqHouPfy7My00zeid8VrOkJRSRFFod-wie6QYsdfM-6aV_NNHxZHr6LMeJG5sk8VvGoJl-X2-yavobkFD1g5QMpNfnXvPSjB5m2sPi00-4frT35oI5jc0i-JJr1MG9VZwyERDrckhrue4Fgy-PC3DhLiiaqn8AcRP_vF_r7-t4Ax9qfXXgEQm-qJOO7oXMfB5TnUGOXGsRJzgwnsQpih0buBJBF3AnmI_ucoDs2eijdUmM4Jw_NDj6Og
+
+{
+  "titulo": "evento user",
+  "descripcion": "evento para los usuarios y todas las personas que quieran asistir",
+  "fecha": "2026-03-30T00:00:00",
+  "lugar": "centro de mosquera novaplaza"
+}
+
+### Subir la foto de perfil a cloudinary
+
+POST http://127.0.0.1:8000/api/eventos/
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImEyZGZiOGEzOGI1MmQ5ZjA5ZWRjYWE1MDcwYTBlOGYwYTllMDk4YmEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJveWVjdG8tYWR2YWloIiwiYXVkIjoicHJveWVjdG8tYWR2YWloIiwiYXV0aF90aW1lIjoxNzczMjQ3ODg5LCJ1c2VyX2lkIjoiT1BqeXludlRURlBNQ3JHWFBCRE9DMmhOeXI0MyIsInN1YiI6Ik9Qanl5bnZUVEZQTUNyR1hQQkRPQzJoTnlyNDMiLCJpYXQiOjE3NzMyNDc4ODksImV4cCI6MTc3MzI1MTQ4OSwiZW1haWwiOiJmZWxpcGU0MzIxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJmZWxpcGU0MzIxQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.QuFT16IyU2EDZQBrQTt5fzdnWFGszVLiM0EAGomfHbtmXWOhYjGGpzBa7oZ50ccdPlemO8e3nIMheDLUa-5DmZM7kVLy1kIWDnTvJH_m1CFeKTGFLPkijZRmit7RzLgSlxHSczWEdvfrUJ0NpUgoAL6sZL-oyYyPTzgnx7LACkXbpQk_I7ni8tOV54mnI8I1RUGrKo9QkGwmZPzoU0zaJuBvs3ig37U9M2hw7KRwozj4qvANwO3ztH0_UKA9Fn9oFdCvZ4xIgcrcRb5OFeffEQydmTccY2yT3uw4SiOHkB58Vnlh9Vch2q6qyXmS3Aqh9-1rVDdy-qT0pfTB7EIbaw
+Content-Type: multipart/form-data; boundary=MyBoundinary
+
+--MiBoundinary
+Content-Disposition:from-Data; name="imagen"; filename="avatar.jpg"
+Content-Type: image/jpeg
+
+< C:\Users\FELIPE MENDIETA\OneDrive\Desktop\Proyecto ADVAIH
+--MiBoundary--
+
