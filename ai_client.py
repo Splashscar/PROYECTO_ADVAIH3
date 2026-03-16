@@ -55,4 +55,13 @@ def consultar_mis_tareas(token_firebase):
     except Exception as e:
         return {"error": str(e)}
 
+# 3. Configuracion de la IA
+
+API_KEY = "AIzaSyDoehzPkT0UaA8_8OuZZHtpt1WGNw2DaDc"
+
+client = genai.Client(api_key=API_KEY)
+
+modelo_id = "gemini-2.5-flash"
+
+
 
