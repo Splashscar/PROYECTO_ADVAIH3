@@ -64,4 +64,49 @@ client = genai.Client(api_key=API_KEY)
 modelo_id = "gemini-2.5-flash"
 
 
+# 4. Flujo de la logica
 
+token = login_usuario()
+
+if token:
+
+    print("IA: Hola soy tu agente de IA integrado a la API")
+
+    while True:
+
+        user_input = input("\nTu: ")
+
+        if user_input.lower() in ["salir", "exit", "chao", "bye"]:
+            break
+
+        prompt = (
+            f"Contexto de seguridad: El token es {token}. "
+            f"Usuario pregunta: {user_input}. "
+            f"Usa la herramienta 'consultar_mis_tareas' si el usuario pregunta por sus tareas."
+        )
+
+        try:
+
+            response = client.models.generate_content(
+                model=modelo_id,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    tools=[consultar_mis_tareas]
+                )
+            )
+
+            print(f"IA: {response.text}")
+
+        except Exception as e:
+
+            error_str = str(e)
+
+            if "429" in error_str:
+                print("IA: Agotamos las peticiones gratuitas del minuto, espera 20 segundos")
+                time.sleep(20)
+
+            elif "404" in error_str:
+                print("IA: Error en la version del modelo")
+
+            else:
+                print("Error de conexion:", e)
