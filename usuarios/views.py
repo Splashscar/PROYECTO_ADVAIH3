@@ -13,57 +13,72 @@ class EventoAPIView(APIView):
     authentication_classes = [firebaseAuthentication]
     permission_classes = [IsAuthenticated]
 
-    # ... (el método post está bien)
+    def get(self, request, id=None):
+        """ Listar todos o uno solo """
+        try:
+            if id:
+                doc = db.collection('proyecto ADVAIH').document(id).get()
+                if not doc.exists:
+                    return Response({"error": "No encontrado"}, status=404)
+                return Response(doc.to_dict())
+            
+            # Listar todos (aquí podrías poner tu lógica de paginación de antes)
+            docs = db.collection('proyecto ADVAIH').where('usuario_id', '==', request.user.uid).stream()
+            eventos = [({**doc.to_dict(), "id": doc.id}) for doc in docs]
+            return Response(eventos, status=200)
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
 
+    def post(self, request):
+        """ Crear nuevo evento """
+        serializer = Eventoserializers(data=request.data)
+        if serializer.is_valid():
+            datos = serializer.validated_data
+            datos['usuario_id'] = request.user.uid
+            datos['fecha_creacion'] = firestore.SERVER_TIMESTAMP
+            
+            nuevo_doc = db.collection('proyecto ADVAIH').add(datos)
+            return Response({"mensaje": "Creado", "id": nuevo_doc[1].id}, status=201)
+        return Response(serializer.errors, status=400)
+
+    
     def put(self, request, id=None):
         if not id:
-            return Response({"Error": "Se requiere el ID del evento"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"Error": "ID requerido"}, status=400)
         
         serializer = Eventoserializers(data=request.data)
         if serializer.is_valid():
-            datos_validados = serializer.validated_data
             try:
                 doc_ref = db.collection('proyecto ADVAIH').document(id)
-                doc_snapshot = doc_ref.get() # CORRECCIÓN: Obtener el snapshot
+                doc_snapshot = doc_ref.get()
                 
                 if not doc_snapshot.exists:
-                    return Response({"Error": "Evento no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+                    return Response({"Error": "No encontrado"}, status=404)
                 
-                tarea_data = doc_snapshot.to_dict() # CORRECCIÓN: usar doc_snapshot
-                
-                # CORRECCIÓN: comparar con .uid
-                if tarea_data.get('usuario_id') != request.user.uid:
-                    return Response(
-                        {"error": "No tienes permiso para editar este evento"},
-                        status= status.HTTP_403_FORBIDDEN
-                    )
+                if doc_snapshot.to_dict().get('usuario_id') != request.user.uid:
+                    return Response({"error": "No es tuyo"}, status=403)
 
-                doc_ref.update(datos_validados)
-                return Response({"mensaje": "Evento actualizado correctamente"}, status=status.HTTP_200_OK)
+                doc_ref.update(serializer.validated_data)
+                return Response({"mensaje": "Actualizado"}, status=200)
             except Exception as e:
-                return Response({"Error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"Error": str(e)}, status=500)
+        return Response(serializer.errors, status=400)
 
+    # CORRECCIÓN: 'delete' en minúsculas
     def delete(self, request, id=None):
         if not id:
-            return Response({"Error": "se requiere el id"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"Error": "ID requerido"}, status=400)
         try:
-            tarea_ref = db.collection('proyecto ADVAIH').document(id)
-            doc_snapshot = tarea_ref.get() # CORRECCIÓN: Obtener el snapshot
+            doc_ref = db.collection('proyecto ADVAIH').document(id)
+            doc_snapshot = doc_ref.get()
             
             if not doc_snapshot.exists:
-                return Response({"error": "no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+                return Response({"error": "No encontrado"}, status=404)
             
-            tarea_data = doc_snapshot.to_dict() # CORRECCIÓN: usar doc_snapshot
-                
-            # CORRECCIÓN: comparar con .uid
-            if tarea_data.get('usuario_id') != request.user.uid:
-                return Response(
-                    {"error": "No tienes permiso para eliminar este evento"},
-                    status= status.HTTP_403_FORBIDDEN
-                )
+            if doc_snapshot.to_dict().get('usuario_id') != request.user.uid:
+                return Response({"error": "No es tuyo"}, status=403)
             
-            tarea_ref.delete()
-            return Response({"mensaje": f"Evento {id} eliminado"}, status=status.HTTP_200_OK)
+            doc_ref.delete()
+            return Response({"mensaje": "Eliminado"}, status=200)
         except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": str(e)}, status=500)

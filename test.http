@@ -1,74 +1,78 @@
-GET  http://127.0.0.1:8000/api/eventos/
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjczMmNhOTY3MTNiMWRkMTcyMzg1MDg0Y2U5ZjQzODFhZDAwY2VjZTQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJveWVjdG8tYWR2YWloIiwiYXVkIjoicHJveWVjdG8tYWR2YWloIiwiYXV0aF90aW1lIjoxNzczNjcyNzEzLCJ1c2VyX2lkIjoiZFJMb3RlQnRvYllwb3Z3VXJCVlVmNTM1V2NGMyIsInN1YiI6ImRSTG90ZUJ0b2JZcG92d1VyQlZVZjUzNVdjRjMiLCJpYXQiOjE3NzM2NzI3MTMsImV4cCI6MTc3MzY3NjMxMywiZW1haWwiOiJ5ZWlzb25AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInllaXNvbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.m3GtgsK1kuGbY72xKDuh1p9gN8gnobCwannoNEUsVop91Bys_a_UA4TMWNdVHg4AdvSzyQ90DGWZPX4Fl9o0tw12JJDM6eirVDy9zswItpi507AjeuiwBoDtloCMudvlZtuCY4bVorF6uEeGTN22UbGtOvxQ3IkZeGyQuCEU4540Ceip6cO0IX5sZm6ojQl6-q2QXgGNcvKScW7X8HG0dRjBJdN_-6SmNpVn8vqU29mTLNNVnkKlcbrnYH98tPUomc0bkASXtNWrDKgB74MqYPScwZj4IJg37LuhV-yzyTE7eZXPPOQNGCGHGVgvz2ylNZJTgiACswWQkz4XBT_Ynw
-
-###crear un nuevo evento (POST)
-
-POST   http://127.0.0.1:8000/api/eventos/
+### 1. Registrar un nuevo usuario (Solo si no existe)
+POST http://127.0.0.1:8000/api/auth/registro/
 Content-Type: application/json
 
 {
-    "titulo":"Mi primer evento",
-    "descripcion":"evento 1",
-    "fecha":"1 de marzo 2026",
-    "lugar":"centro de mosquera",
+    "email": "alixiscaco@gmail.com",
+    "password": "1234567890"
 }
 
-###actualizar vento (PUT)
-PUT http://127.0.0.1:8000/api/eventos/
-Content-Type:application/json
+### -------------------------------------------------------
 
-{
-    "titulo":"Mi primer evento deportivo",
-    "descripcion":"entrada gratis",
-    "fecha":"30 de marzo 2026",
-    "lugar":"centro de mosquera villa olimpica",
-}
-
-###eleminar evento
-DELETE   http://127.0.0.1:8000/api/eventos/
-
-###1. registrar un nuevo usuario
-
-POST  http://127.0.0.1:8000/api/auth/registro/
+### 2. Login para obtener el TOKEN
+# NOTA: Copia el valor de "Token" que sale en la respuesta.
+POST http://127.0.0.1:8000/api/auth/login/
 Content-Type: application/json
 
 {
-    "email":"yeison@gmail.com",
-    "password":"1234567890"
+    "email": "alixiscaco@gmail.com",
+    "password": "1234567890"
 }
 
-###2. iniciar sesion para conseguir el token (POST)
+### -------------------------------------------------------
+### TOKEN DE USUARIO
+@token = eyJhbGciOiJSUzI1NiIsImtpZCI6IjczMmNhOTY3MTNiMWRkMTcyMzg1MDg0Y2U5ZjQzODFhZDAwY2VjZTQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJveWVjdG8tYWR2YWloIiwiYXVkIjoicHJveWVjdG8tYWR2YWloIiwiYXV0aF90aW1lIjoxNzczNjc2OTgwLCJ1c2VyX2lkIjoiRjUwaEJnUHJnblR1b0hGa2FEeW1zZXhWWk9nMiIsInN1YiI6IkY1MGhCZ1ByZ25UdW9IRmthRHltc2V4VlpPZzIiLCJpYXQiOjE3NzM2NzY5ODAsImV4cCI6MTc3MzY4MDU4MCwiZW1haWwiOiJhbGl4aXNjYWNvQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJhbGl4aXNjYWNvQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vdg3U17bXgq07V8DIrJUdbVqePwXjNBJ-WTbNHXH3TlIs-nXh9PeKX6_XmyzwSE-VLICNLCLDWeq7cFJ3qf3sSDM-Ba4w_rWc4Uio5LaecM91bWOD3v-0yRO37FrlBT0XK3UTNzawMS0i_fiFKm8c0q15TbokfzMjPPezWJSgw-wi2uCu--p0imI60hCYKeNv_TozvZVGqi0n94dqzEvh9sNAUzEhATlXIqTQp-06ZGP8d0-8BS2bPZrFIGgHBU7kkOkTMyciG7OkcD2juWIxE71pK8ElfJat9M24vUkA8zp_G3KL69BtmKcn8DRF1DRp0L60yDU5BwZv_1PkGMXVA
 
-POST  http://127.0.0.1:8000/api/auth/login/
-Content-Type: application/json
-
-{
-    "email":"yeison@gmail.com",
-    "password":"1234567890"
-}
-###3. crear un evento USANDO EL TOKEN(POST)
-
+### 3. Crear un nuevo evento
 POST http://127.0.0.1:8000/api/eventos/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjczMmNhOTY3MTNiMWRkMTcyMzg1MDg0Y2U5ZjQzODFhZDAwY2VjZTQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJveWVjdG8tYWR2YWloIiwiYXVkIjoicHJveWVjdG8tYWR2YWloIiwiYXV0aF90aW1lIjoxNzczNjY3MzU2LCJ1c2VyX2lkIjoiZFJMb3RlQnRvYllwb3Z3VXJCVlVmNTM1V2NGMyIsInN1YiI6ImRSTG90ZUJ0b2JZcG92d1VyQlZVZjUzNVdjRjMiLCJpYXQiOjE3NzM2NjczNTYsImV4cCI6MTc3MzY3MDk1NiwiZW1haWwiOiJ5ZWlzb25AZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbInllaXNvbkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.oPwyIg5yVTDE9actEjDOJVYnrcmIeqM9OvmYYitYziFOpGhr5ynQW47M36x7XwcCsDNdZX1LJrsnhhXtWolGQXRDpM7KPnhqHouPfy7My00zeid8VrOkJRSRFFod-wie6QYsdfM-6aV_NNHxZHr6LMeJG5sk8VvGoJl-X2-yavobkFD1g5QMpNfnXvPSjB5m2sPi00-4frT35oI5jc0i-JJr1MG9VZwyERDrckhrue4Fgy-PC3DhLiiaqn8AcRP_vF_r7-t4Ax9qfXXgEQm-qJOO7oXMfB5TnUGOXGsRJzgwnsQpih0buBJBF3AnmI_ucoDs2eijdUmM4Jw_NDj6Og
+Authorization: Bearer {{token}}
 
 {
-  "titulo": "evento user",
-  "descripcion": "evento para los usuarios y todas las personas que quieran asistir",
-  "fecha": "2026-03-30T00:00:00",
-  "lugar": "centro de mosquera novaplaza"
+    "titulo": "Evento de prueba (delete)",
+    "descripcion": "Probando mi API con las nuevas vistas corregidas este sera para eliminar",
+    "fecha": "2026-03-30T10:00:00Z",
+    "lugar": "Centro de Mosquera"
 }
 
-### Subir la foto de perfil a cloudinary
+### -------------------------------------------------------
 
-POST http://127.0.0.1:8000/api/eventos/
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImEyZGZiOGEzOGI1MmQ5ZjA5ZWRjYWE1MDcwYTBlOGYwYTllMDk4YmEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJveWVjdG8tYWR2YWloIiwiYXVkIjoicHJveWVjdG8tYWR2YWloIiwiYXV0aF90aW1lIjoxNzczMjQ3ODg5LCJ1c2VyX2lkIjoiT1BqeXludlRURlBNQ3JHWFBCRE9DMmhOeXI0MyIsInN1YiI6Ik9Qanl5bnZUVEZQTUNyR1hQQkRPQzJoTnlyNDMiLCJpYXQiOjE3NzMyNDc4ODksImV4cCI6MTc3MzI1MTQ4OSwiZW1haWwiOiJmZWxpcGU0MzIxQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJmZWxpcGU0MzIxQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.QuFT16IyU2EDZQBrQTt5fzdnWFGszVLiM0EAGomfHbtmXWOhYjGGpzBa7oZ50ccdPlemO8e3nIMheDLUa-5DmZM7kVLy1kIWDnTvJH_m1CFeKTGFLPkijZRmit7RzLgSlxHSczWEdvfrUJ0NpUgoAL6sZL-oyYyPTzgnx7LACkXbpQk_I7ni8tOV54mnI8I1RUGrKo9QkGwmZPzoU0zaJuBvs3ig37U9M2hw7KRwozj4qvANwO3ztH0_UKA9Fn9oFdCvZ4xIgcrcRb5OFeffEQydmTccY2yT3uw4SiOHkB58Vnlh9Vch2q6qyXmS3Aqh9-1rVDdy-qT0pfTB7EIbaw
-Content-Type: multipart/form-data; boundary=MyBoundinary
+### 4. Listar mis eventos (GET)
+# Si te da error de "index", revisa la terminal de Django y haz clic en el link de Google.
+GET http://127.0.0.1:8000/api/eventos/?Limit=5
+Authorization: Bearer {{token}}
 
---MiBoundinary
-Content-Disposition:from-Data; name="imagen"; filename="avatar.jpg"
+### -------------------------------------------------------
+
+### 5. Actualizar un evento (PUT)
+# RECUERDA: Cambia "ID_DEL_EVENTO" por un ID real que obtuviste en el paso 4.
+PUT http://127.0.0.1:8000/api/eventos/bcKfY8FqiIRZKTPRMf1G/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "titulo": "Evento Actualizado",
+    "descripcion": "Ya funciona el PUT probando actualizar un evento",
+    "fecha": "2026-03-31T15:00:00Z",
+    "lugar": "Villa Olímpica"
+}
+
+### -------------------------------------------------------
+
+### 6. Eliminar un evento (DELETE)
+DELETE http://127.0.0.1:8000/api/eventos/i6u7RJzab309lLjqFQw3/
+Authorization: Bearer {{token}}
+
+### -------------------------------------------------------
+
+### 7. Subir foto de perfil a Cloudinary
+POST http://127.0.0.1:8000/api/perfil/foto/
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=MyBoundary
+
+--MyBoundary
+Content-Disposition: form-data; name="imagen"; filename="avatar.jpg"
 Content-Type: image/jpeg
 
-< C:\Users\FELIPE MENDIETA\OneDrive\Desktop\Proyecto ADVAIH
---MiBoundary--
-
+< ./avatar.jpg
+--MyBoundary--
