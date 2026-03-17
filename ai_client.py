@@ -21,7 +21,7 @@ def login_usuario():
 
         if response.status_code == 200:
             print("Usuario loggeado correctamente")
-            return response.json().get("token")
+            return response.json().get("Token")
 
         print(f"Error: {response.json().get('error')}")
 
@@ -31,27 +31,26 @@ def login_usuario():
     return None
 
 
-# 2. Herramienta que la IA puede usar
 
-def consultar_mis_tareas(token_firebase):
+# 2. Funcion de herramienta (Modificada para la IA)
+def consultar_mis_tareas():
     """
-    Consulta la lista de tareas del usuario autenticado en la API
+    Consulta la lista de eventos o tareas del usuario autenticado en la API.
+    No requiere argumentos.
     """
-
-    print("EL SISTEMA ESTA CONSULTANDO LA API")
-
-    url = "http://127.0.0.1:8000/api/tareas/"
-
-    headers = {
-        "Authorization": f"Bearer {token_firebase}"
-    }
-
-    print(f"Enviando cabeceras: {headers}")
+    # Usaremos la variable global 'token' que obtuvimos en el login
+    global token 
+    
+    print("\n[SISTEMA]: La IA está consultando la API de eventos...")
+    url = "http://127.0.0.1:8000/api/eventos/"
+    headers = {"Authorization": f"Bearer {token}"}
 
     try:
         res = requests.get(url, headers=headers)
-        return res.json()
-
+        if res.status_code == 200:
+            return res.json()
+        else:
+            return {"error": f"Servidor respondió con {res.status_code}", "detalle": res.text}
     except Exception as e:
         return {"error": str(e)}
 
@@ -64,49 +63,34 @@ client = genai.Client(api_key=API_KEY)
 modelo_id = "gemini-2.5-flash"
 
 
-# 4. Flujo de la logica
 
+# 4. Flujo de la lógica
 token = login_usuario()
 
 if token:
+    print("IA: Hola, soy tu agente. ¿En qué puedo ayudarte hoy?")
 
-    print("IA: Hola soy tu agente de IA integrado a la API")
+    # IMPORTANTE: Definir el chat con el modo de "AUTOMATIC" para que 
+    # la IA ejecute la función por sí sola.
+    chat = client.chats.create(
+        model=modelo_id,
+        config=types.GenerateContentConfig(
+            tools=[consultar_mis_tareas],
+            automatic_function_calling=types.AutomaticFunctionCallingConfig(enabled=True)
+        )
+    )
 
     while True:
-
         user_input = input("\nTu: ")
-
-        if user_input.lower() in ["salir", "exit", "chao", "bye"]:
+        if user_input.lower() in ['salir', 'exit', 'chao', 'bye']: 
             break
 
-        prompt = (
-            f"Contexto de seguridad: El token es {token}. "
-            f"Usuario pregunta: {user_input}. "
-            f"Usa la herramienta 'consultar_mis_tareas' si el usuario pregunta por sus tareas."
-        )
-
-        try:
-
-            response = client.models.generate_content(
-                model=modelo_id,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    tools=[consultar_mis_tareas]
-                )
-            )
-
+        try: 
+            # Enviamos el mensaje al chat
+            response = chat.send_message(user_input)
+            
+            # Imprimimos la respuesta final (la IA ya habrá llamado a la función)
             print(f"IA: {response.text}")
 
         except Exception as e:
-
-            error_str = str(e)
-
-            if "429" in error_str:
-                print("IA: Agotamos las peticiones gratuitas del minuto, espera 20 segundos")
-                time.sleep(20)
-
-            elif "404" in error_str:
-                print("IA: Error en la version del modelo")
-
-            else:
-                print("Error de conexion:", e)
+            print(f"Error: {e}")

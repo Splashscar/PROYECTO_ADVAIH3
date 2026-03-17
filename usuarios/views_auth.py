@@ -13,7 +13,7 @@ class RegistroAPIView(APIView):
     authentication_classes= []
     permission_classes=[]
 
-    def post (self, request):
+    def post (self, request):                                                                                                 
         email = request.data.get('email')
         password = request.data.get('password')
 
