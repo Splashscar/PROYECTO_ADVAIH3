@@ -124,7 +124,8 @@ def actualizar_evento(id_evento: str, titulo: str = None, descripcion: str = Non
             return {"resultado": "Error", "detalle": res.json()}
     except Exception as e:
         return {"resultado": "Error de conexión", "detalle": str(e)}
-
+    
+    
 # 3. Configuracion de la IA
 load_dotenv(dotenv_path='proyecto_advaih/.env')
 
@@ -148,8 +149,12 @@ if token:
     chat = client.chats.create(
         model=modelo_id,
         config=types.GenerateContentConfig(
-            tools=[consultar_mis_tareas, crear_nuevo_evento]#,
-            #automatic_function_calling=types.AutomaticFunctionCallingConfig(enabled=True)
+            tools=[consultar_mis_tareas, crear_nuevo_evento, actualizar_evento],
+            system_instruction=(
+                "ERES UN ASISTENTE DE CALENDARIO. IMPORTANTE: Los identificadores de los eventos "
+                "son STRINGS (cadenas de texto) de Firebase como 'OZvDgeu...'. "
+                "NUNCA digas que necesitas un número entero (int). Usa el ID de texto tal cual."
+            )
         )
     )
 
