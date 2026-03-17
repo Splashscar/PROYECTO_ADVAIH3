@@ -89,29 +89,43 @@ def crear_nuevo_evento(titulo: str, descripcion: str, fecha: str, lugar: str):
         return {"resultado": "Error de conexión", "detalle": str(e)}
     
 
-def actualizar_evento(id_evento: int, titulo: str = None, descripcion: str = None, fecha: str = None, lugar: str = None):
+def actualizar_evento(id_evento: str, titulo: str = None, descripcion: str = None, fecha: str = None, lugar: str = None):
     """
-    Actualiza los datos de un evento existente usando su ID.
-    Solo envía los campos que el usuario quiera cambiar.
+    Actualiza los datos de un evento existente usando su ID de Firebase.
+    Argumentos:
+        id_evento: El ID alfanumérico del evento (ej: 'OZvDgeu...').
+        titulo: (Opcional) Nuevo nombre.
+        descripcion: (Opcional) Nuevos detalles.
+        fecha: (Opcional) Nueva fecha en formato YYYY-MM-DD.
+        lugar: (Opcional) Nueva ubicación.
     """
     global token
-    print(f"\n[SISTEMA]: Actualizando evento ID: {id_evento}...")
+    print(f"\n[SISTEMA]: La IA está actualizando el evento ID: {id_evento}...")
     
     url = f"http://127.0.0.1:8000/api/eventos/{id_evento}/"
     headers = {"Authorization": f"Bearer {token}"}
     
-    # Creamos un diccionario solo con los campos que no son None
-    payload = {k: v for k, v in locals().items() if v is not None and k not in ['id_evento', 'headers', 'url']}
+    # Construimos el payload solo con los datos que el usuario proporcionó
+    payload = {}
+    if titulo: payload["titulo"] = titulo
+    if descripcion: payload["descripcion"] = descripcion
+    if fecha: payload["fecha"] = fecha
+    if lugar: payload["lugar"] = lugar
+
+    if not payload:
+        return {"resultado": "Error", "detalle": "No se proporcionaron campos para actualizar."}
 
     try:
-        res = requests.patch(url, json=payload, headers=headers) # Usamos PATCH para actualizar parcial
+        # Usamos PATCH para actualización parcial (solo lo que cambió)
+        res = requests.patch(url, json=payload, headers=headers)
         if res.status_code == 200:
-            return {"resultado": "Éxito", "detalle": "Evento actualizado correctamente"}
+            return {"resultado": "Éxito", "detalle": "Evento actualizado correctamente en Firebase."}
         else:
             return {"resultado": "Error", "detalle": res.json()}
     except Exception as e:
         return {"resultado": "Error de conexión", "detalle": str(e)}
-
+    
+    
 # 3. Configuracion de la IA
 load_dotenv(dotenv_path='proyecto_advaih/.env')
 
@@ -135,8 +149,12 @@ if token:
     chat = client.chats.create(
         model=modelo_id,
         config=types.GenerateContentConfig(
-            tools=[consultar_mis_tareas, crear_nuevo_evento]#,
-            #automatic_function_calling=types.AutomaticFunctionCallingConfig(enabled=True)
+            tools=[consultar_mis_tareas, crear_nuevo_evento, actualizar_evento],
+            system_instruction=(
+                "ERES UN ASISTENTE DE CALENDARIO. IMPORTANTE: Los identificadores de los eventos "
+                "son STRINGS (cadenas de texto) de Firebase como 'OZvDgeu...'. "
+                "NUNCA digas que necesitas un número entero (int). Usa el ID de texto tal cual."
+            )
         )
     )
 
