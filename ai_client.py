@@ -56,12 +56,18 @@ def consultar_mis_tareas():
     except Exception as e:
         return {"error": str(e)}
     
-def crear_nuevo_evento(titulo, descripcion, fecha, lugar):
+def crear_nuevo_evento(titulo: str, descripcion: str, fecha: str, lugar: str):
     """
-    Crea un nuevo evento en el sistema. 
-    Requiere título, descripción, fecha (ISO 8601) y lugar.
+    Crea un nuevo evento. 
+    Argumentos:
+        titulo: Nombre del evento.
+        descripcion: Detalles de qué trata.
+        fecha: Fecha en formato texto (ej: 2026-03-20).
+        lugar: Ubicación física.
     """
     global token
+    print(f"\n[SISTEMA]: La IA está ejecutando 'crear_nuevo_evento' para: {titulo}")
+    
     url = "http://127.0.0.1:8000/api/eventos/"
     headers = {"Authorization": f"Bearer {token}"}
     payload = {
@@ -70,8 +76,15 @@ def crear_nuevo_evento(titulo, descripcion, fecha, lugar):
         "fecha": fecha,
         "lugar": lugar
     }
-    res = requests.post(url, json=payload, headers=headers)
-    return res.json()
+
+    try:
+        res = requests.post(url, json=payload, headers=headers)
+        if res.status_code == 201:
+            return {"resultado": "Éxito", "detalle": "Evento creado correctamente"}
+        else:
+            return {"resultado": "Error", "detalle": res.json()}
+    except Exception as e:
+        return {"resultado": "Error de conexión", "detalle": str(e)}
 
 # 3. Configuracion de la IA
 load_dotenv(dotenv_path='proyecto_advaih/.env')
