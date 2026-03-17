@@ -55,11 +55,29 @@ def consultar_mis_tareas():
             return {"error": f"Servidor respondió con {res.status_code}", "detalle": res.text}
     except Exception as e:
         return {"error": str(e)}
+    
+def crear_nuevo_evento(titulo, descripcion, fecha, lugar):
+    """
+    Crea un nuevo evento en el sistema. 
+    Requiere título, descripción, fecha (ISO 8601) y lugar.
+    """
+    global token
+    url = "http://127.0.0.1:8000/api/eventos/"
+    headers = {"Authorization": f"Bearer {token}"}
+    payload = {
+        "titulo": titulo,
+        "descripcion": descripcion,
+        "fecha": fecha,
+        "lugar": lugar
+    }
+    res = requests.post(url, json=payload, headers=headers)
+    return res.json()
 
 # 3. Configuracion de la IA
-load_dotenv()
+load_dotenv(dotenv_path='proyecto_advaih/.env')
 
 API_KEY = os.getenv("GEMINI_API_KEY")
+
 
 client = genai.Client(api_key=API_KEY)
 
@@ -78,7 +96,7 @@ if token:
     chat = client.chats.create(
         model=modelo_id,
         config=types.GenerateContentConfig(
-            tools=[consultar_mis_tareas]#,
+            tools=[consultar_mis_tareas, crear_nuevo_evento]#,
             #automatic_function_calling=types.AutomaticFunctionCallingConfig(enabled=True)
         )
     )
