@@ -125,6 +125,29 @@ def actualizar_evento(id_evento: str, titulo: str = None, descripcion: str = Non
     except Exception as e:
         return {"resultado": "Error de conexión", "detalle": str(e)}
     
+
+def eliminar_evento(id_evento: str):
+    """
+    Elimina permanentemente un evento del sistema usando su ID de Firebase.
+    Argumentos:
+        id_evento: El ID alfanumérico del evento a borrar.
+    """
+    global token
+    print(f"\n[SISTEMA]: La IA está eliminando el evento ID: {id_evento}...")
+    
+    url = f"http://127.0.0.1:8000/api/eventos/{id_evento}/"
+    headers = {"Authorization": f"Bearer {token}"}
+
+    try:
+        res = requests.delete(url, headers=headers)
+        # Django suele responder 204 No Content cuando elimina con éxito
+        if res.status_code == 204 or res.status_code == 200:
+            return {"resultado": "Éxito", "detalle": "El evento ha sido eliminado."}
+        else:
+            return {"resultado": "Error", "detalle": "No se pudo eliminar el evento."}
+    except Exception as e:
+        return {"resultado": "Error de conexión", "detalle": str(e)}
+    
     
 # 3. Configuracion de la IA
 load_dotenv(dotenv_path='proyecto_advaih/.env')
@@ -149,7 +172,7 @@ if token:
     chat = client.chats.create(
         model=modelo_id,
         config=types.GenerateContentConfig(
-            tools=[consultar_mis_tareas, crear_nuevo_evento, actualizar_evento],
+            tools=[consultar_mis_tareas, crear_nuevo_evento, actualizar_evento, eliminar_evento],
             system_instruction=(
                 "ERES UN ASISTENTE DE CALENDARIO. IMPORTANTE: Los identificadores de los eventos "
                 "son STRINGS (cadenas de texto) de Firebase como 'OZvDgeu...'. "
