@@ -65,14 +65,8 @@ Authorization: Bearer {{token}}
 
 ### -------------------------------------------------------
 
-### 7. Subir foto de perfil a Cloudinary
+### 7. Subir foto de perfil
 POST http://127.0.0.1:8000/api/perfil/foto/
 Authorization: Bearer {{token}}
-Content-Type: multipart/form-data; boundary=MyBoundary
 
---MyBoundary
-Content-Disposition: form-data; name="imagen"; filename="avatar.jpg"
-Content-Type: image/jpeg
-
-< ./avatar.jpg
---MyBoundary--
+imagen=@avatar.jpg
