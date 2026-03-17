@@ -7,6 +7,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
 from .authentication import firebaseAuthentication
 from proyecto_advaih.Firebase_config import initialize_firebase
+from rest_framework.decorators import api_view
 
 db = initialize_firebase
 
@@ -48,3 +49,28 @@ class PerfilImagenAPIView(APIView):
         
         except Exception as e:
             return Response({"error": str(e)}, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+
+@api_view(['POST'])
+def subir_foto_perfil(request):
+
+    if 'imagen' not in request.FILES:
+        return Response({"error": "No se envió ninguna imagen"}, status=400)
+
+    imagen = request.FILES['imagen']
+
+    try:
+        resultado = cloudinary.uploader.upload(imagen)
+
+        url_imagen = resultado['secure_url']
+
+        return Response({
+            "mensaje": "Imagen subida correctamente",
+            "url": url_imagen
+        })
+
+    except Exception as e:
+        return Response({
+            "error": str(e)
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
