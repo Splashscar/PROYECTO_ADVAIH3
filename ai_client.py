@@ -1,5 +1,7 @@
 import time
 import getpass
+import os
+from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 import requests
@@ -55,8 +57,9 @@ def consultar_mis_tareas():
         return {"error": str(e)}
 
 # 3. Configuracion de la IA
+load_dotenv()
 
-API_KEY = "AIzaSyDoehzPkT0UaA8_8OuZZHtpt1WGNw2DaDc"
+API_KEY = os.getenv("GEMINI_API_KEY")
 
 client = genai.Client(api_key=API_KEY)
 
@@ -75,8 +78,8 @@ if token:
     chat = client.chats.create(
         model=modelo_id,
         config=types.GenerateContentConfig(
-            tools=[consultar_mis_tareas],
-            automatic_function_calling=types.AutomaticFunctionCallingConfig(enabled=True)
+            tools=[consultar_mis_tareas]#,
+            #automatic_function_calling=types.AutomaticFunctionCallingConfig(enabled=True)
         )
     )
 
