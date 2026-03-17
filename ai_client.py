@@ -77,10 +77,36 @@ def crear_nuevo_evento(titulo: str, descripcion: str, fecha: str, lugar: str):
         "lugar": lugar
     }
 
+
+
     try:
         res = requests.post(url, json=payload, headers=headers)
         if res.status_code == 201:
             return {"resultado": "Éxito", "detalle": "Evento creado correctamente"}
+        else:
+            return {"resultado": "Error", "detalle": res.json()}
+    except Exception as e:
+        return {"resultado": "Error de conexión", "detalle": str(e)}
+    
+
+def actualizar_evento(id_evento: int, titulo: str = None, descripcion: str = None, fecha: str = None, lugar: str = None):
+    """
+    Actualiza los datos de un evento existente usando su ID.
+    Solo envía los campos que el usuario quiera cambiar.
+    """
+    global token
+    print(f"\n[SISTEMA]: Actualizando evento ID: {id_evento}...")
+    
+    url = f"http://127.0.0.1:8000/api/eventos/{id_evento}/"
+    headers = {"Authorization": f"Bearer {token}"}
+    
+    # Creamos un diccionario solo con los campos que no son None
+    payload = {k: v for k, v in locals().items() if v is not None and k not in ['id_evento', 'headers', 'url']}
+
+    try:
+        res = requests.patch(url, json=payload, headers=headers) # Usamos PATCH para actualizar parcial
+        if res.status_code == 200:
+            return {"resultado": "Éxito", "detalle": "Evento actualizado correctamente"}
         else:
             return {"resultado": "Error", "detalle": res.json()}
     except Exception as e:
@@ -128,3 +154,5 @@ if token:
 
         except Exception as e:
             print(f"Error: {e}")
+
+
