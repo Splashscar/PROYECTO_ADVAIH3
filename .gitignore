@@ -22,4 +22,5 @@ serviceAccountKey.json
 Thumbs.db
 
 *.log
-pip-log-txt
+pip-log-txt}
+
