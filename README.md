@@ -34,3 +34,17 @@ Si encuentras algún error durante la ejecución, aquí tienes las soluciones m�
 
 * **Error de Autenticación:** - **Causa:** Email o contraseña incorrectos.
   - **Solución:** Revisa tus credenciales en la base de datos de Django.
+
+
+
+  ---
+
+## 🚀 Próximos Pasos (Mejoras Futuras)
+
+Para las siguientes versiones del asistente, el equipo tiene planeado:
+
+- [ ] **Notificaciones:** Implementar avisos automáticos al correo cuando se acerque la fecha de un evento.
+- [ ] **Interfaz Gráfica:** Crear una ventana con botones (usando Tkinter o CustomTkinter) para no depender solo de la consola.
+- [ ] **Soporte de Archivos:** Permitir que el usuario suba un PDF con su horario y que la IA extraiga los eventos automáticamente.
+- [ ] **Sincronización:** Conectar el backend con Google Calendar real para ver los cambios en el celular.
+- [ ] **Historial:** Guardar las conversaciones pasadas para que la IA recuerde eventos anteriores.
