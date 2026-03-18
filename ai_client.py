@@ -39,9 +39,12 @@ def login_usuario():
             return response.json().get("Token")
 
         print(f"{Fore.RED}Error: {response.json().get('error')}")
-
+        
+        
+    except requests.exceptions.ConnectionError:
+        print(f"{Fore.RED}✖️ ERROR: No se pudo conectar xon el servidor. ¿Esta encendido Django?")
     except Exception as e:
-        print(f"{Fore.RED}Error de conexion:", e)
+        print(f"{Fore.RED}✖️Error insesperado:", e)
 
     return None
 
