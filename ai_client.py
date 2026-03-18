@@ -163,6 +163,7 @@ if token:
                 "son STRINGS (cadenas de texto) de Firebase como 'OZvDgeu...'. "
                 "NUNCA digas que necesitas un número entero (int). Usa el ID de texto tal cual."
             )
+            
         )
     )
 
