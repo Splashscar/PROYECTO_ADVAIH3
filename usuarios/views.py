@@ -82,3 +82,47 @@ class EventoAPIView(APIView):
             return Response({"mensaje": "Eliminado"}, status=200)
         except Exception as e:
             return Response({"error": str(e)}, status=500)
+        
+
+from django.core.mail import send_mail
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+
+class EnviarTareasEmailAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        correo = request.data.get("correo")
+        uid_usuario = request.user.uid  # porque usas Firebase auth
+
+        try:
+            
+            tareas_ref = db.collection("api_tareas").where(
+                "usuario_id", "==", uid_usuario
+            )
+            docs = tareas_ref.stream()
+
+            tareas = []
+            for doc in docs:
+                data = doc.to_dict()
+                tareas.append(f"- {data.get('titulo')}")
+
+            if not tareas:
+                return Response({"mensaje": "No hay tareas"}, status=200)
+
+            mensaje = "Tus tareas:\n\n" + "\n".join(tareas)
+
+            
+            send_mail(
+                'Tus tareas',
+                mensaje,
+                'tu_correo@gmail.com',
+                [correo],
+                fail_silently=False,
+            )
+
+            return Response({"mensaje": "Correo enviado correctamente"}, status=200)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)
