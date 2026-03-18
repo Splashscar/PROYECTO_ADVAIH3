@@ -184,6 +184,10 @@ if token:
     while True:
         user_input = input(f"\n{Fore.WHITE}Tu: ")
         
+        if not user_input.strip():
+            print(f"{Fore.YELLOW}⚠️ por favor , escribe un mensaje antes de enviar.")
+            continue
+        
         if user_input.lower() == 'limpiar':
             limpiar_pantalla()
             print(f"{Fore.CYAN}✨ Pantalla limpia. ¿En qué más puedo ayudarte?")
