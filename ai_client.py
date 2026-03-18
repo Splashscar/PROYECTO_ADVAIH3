@@ -30,7 +30,8 @@ def login_usuario():
     try:
         response = requests.post(
             url_login,
-            json={"email": email, "password": password}
+            json={"email": email, "password": password},
+            timeout=10
         )
 
         if response.status_code == 200:
