@@ -196,5 +196,9 @@ if token:
         try: 
             response = chat.send_message(user_input)
             print(f"{Fore.BLUE}IA: {Style.RESET_ALL}{response.text}")
+            
+            
+            print(f"\n{Fore.YELLOW}{'-'*60}{Style.RESET_ALL}") 
+           
         except Exception as e:
             print(f"{Fore.RED}Error: {e}")
