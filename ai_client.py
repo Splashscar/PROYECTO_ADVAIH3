@@ -154,6 +154,12 @@ def eliminar_evento(id_evento: str):
 
 load_dotenv(dotenv_path='proyecto_advaih/.env')
 API_KEY = os.getenv("GEMINI_API_KEY")
+
+if not API_KEY:
+    print(f"{Fore.RED}✖️ ERROR CRITICO: No se encontro la GEMINI_API_KEY en el archiivo .env")
+    exit()
+    
+    
 client = genai.Client(api_key=API_KEY)
 modelo_id = "gemini-1.5-flash" # Cambiado a 1.5 para evitar error de cuota
 
