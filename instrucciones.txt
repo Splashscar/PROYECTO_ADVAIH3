@@ -1,0 +1,27 @@
+=========================================
+💡 GUÍA DE USO - ASISTENTE DE EVENTOS IA
+=========================================
+
+Para interactuar con la IA, puedes usar lenguaje natural. Aquí tienes ejemplos de qué decir:
+
+1. 📂 CONSULTAR EVENTOS:
+   - "Dime qué eventos tengo para hoy."
+   - "Muéstrame mi lista de tareas."
+
+2. ➕ CREAR UN EVENTO:
+   - "Crea un evento llamado 'Reunión de Proyecto' para el 2026-03-20 en la Universidad."
+   - "Agrega una tarea: Ir al médico el 2026-04-10 en la Clínica Central."
+
+3. ✏️ ACTUALIZAR UN EVENTO:
+   - "Cambia el nombre del evento con ID [ID] a 'Entrega Final'."
+   - "Actualiza la fecha del evento [ID] para mañana."
+
+4. 🗑️ ELIMINAR UN EVENTO:
+   - "Borra el evento que tiene el ID [ID]."
+   - "Elimina la tarea con identificador [ID]."
+
+5. 🛠️ COMANDOS DE SISTEMA:
+   - "limpiar": Borra todo el texto de la pantalla.
+   - "salir": Cierra el asistente de forma segura.
+
+NOTA: Los IDs son los códigos que te da la IA al listar los eventos.
