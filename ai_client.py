@@ -152,7 +152,12 @@ modelo_id = "gemini-1.5-flash" # Cambiado a 1.5 para evitar error de cuota
 token = login_usuario()
 
 if token:
-    print(f"\n{Fore.BLUE}IA: Hola, soy tu agente. ¿En qué puedo ayudarte hoy?")
+    print(f"\n{Fore.CYAN}*****************************************")
+    print(f"{Fore.CYAN}* *")
+    print(f"{Fore.CYAN}* {Fore.WHITE}BIENVENIDO AL GESTOR DE EVENTOS{Fore.CYAN}   *")
+    print(f"{Fore.CYAN}* {Fore.GREEN}POWERED BY GEMINI AI{Fore.CYAN}         *")
+    print(f"{Fore.CYAN}* *")
+    print(f"{Fore.CYAN}*****************************************")
 
     chat = client.chats.create(
         model=modelo_id,
