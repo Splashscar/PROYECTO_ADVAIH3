@@ -190,7 +190,13 @@ if token:
             continue
         
         
-        if user_input.lower() in ['salir', 'exit', 'chao', 'bye']: 
+        if user_input.lower() in ['salir', 'exit', 'chao', 'bye']:
+            
+            print(f"\n{Fore.CYAN}✨ Finalizando sesión del asistente...")
+            time.sleep(1) # Un pequeño retraso para que se sienta real
+            print(f"{Fore.CYAN}👋 ¡Hasta luego, desarrollador! Que tengas un excelente día.{Style.RESET_ALL}")
+            print(f"{Fore.CYAN}{'='*50}\n")
+            
             break
 
         try: 
