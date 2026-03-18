@@ -5,11 +5,20 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 import requests
+import subprocess
 from colorama import Fore, Style, init
 
 # Inicializamos colorama para que los colores funcionen
 init(autoreset=True)
 
+# funcion para limpiar pantalla
+def limpiar_pantalla():
+    if os.name == 'nt':
+        subprocess.run("cls", shell=True)
+    else:
+        subprocess.run("clear", shell=True)
+    
+    
 # 1. Funcion de login
 def login_usuario():
     print(f"\n{Fore.CYAN}--- login de usuario ---")
@@ -174,6 +183,13 @@ if token:
 
     while True:
         user_input = input(f"\n{Fore.WHITE}Tu: ")
+        
+        if user_input.lower() == 'limpiar':
+            limpiar_pantalla()
+            print(f"{Fore.CYAN}✨ Pantalla limpia. ¿En qué más puedo ayudarte?")
+            continue
+        
+        
         if user_input.lower() in ['salir', 'exit', 'chao', 'bye']: 
             break
 
