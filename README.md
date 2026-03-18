@@ -1,50 +1,71 @@
-# 🚀 Asistente de Eventos con IA (Gemini)
+# PROYECTO ADVAIH
 
-Este proyecto es un asistente virtual inteligente que se conecta a una API de Django para gestionar eventos (crear, ver, actualizar y eliminar) usando lenguaje natural.
+### 📝 Descripción
+Es una plataforma donde los usuarios pueden **buscar eventos cercanos** basándose en su ubicación e intereses, y también **crear sus propios eventos** para que otros miembros de la comunidad puedan asistir y participar. El objetivo es facilitar la conexión local entre personas con intereses comunes.
 
-## 👥 Integrantes del Equipo
-* **Alexis [moreno]** - Documentador
-* **[Felipe Mendieta]** - UI/UX (Maquillador)
-* **[sebastian murciua]** - Desarrolladr IA (ERRORES)
-* **[David Anzola]** - Desarrollador (CORREO📰)
+---
 
+## 📋 Requisitos de Instalación
 
-## 🛠️ Instalación y Configuración
+Para ejecutar este proyecto, necesitas tener instalado lo siguiente:
 
-Sigue estos pasos para ejecutar el proyecto en tu entorno local:
+* **Python:** Versión 3.9 o superior.
+* **Sistema de control de versiones:** Git.
+* **Gestor de paquetes:** pip (incluido en Python).
+* **Entorno virtual:** venv o virtualenv.
+
+---
+
+## 🚀 Guía de Instalación (Paso a paso)
+
+Sigue estos pasos exactamente para tener el proyecto corriendo en tu PC:
 
 1. **Clonar el repositorio:**
+   Abre una terminal y ejecuta:
    ```bash
-   git clone [https://github.com/Splashscar/PROYECTO_ADVAIH3.git]
+   git clone [https://github.com/Splashscar/PROYECTO_ADVAIH3.git](https://github.com/Splashscar/PROYECTO_ADVAIH3.git)
+   cd PROYECTO_ADVAIH3
+   ```
+2. **Crear un entorno virtual:**
+    Abre una terminal y ejecuta:
+    ```bash
+    python -m venv venv
+    ```
+3. **Activar el entorno virtual:**
+    ```bash
+    .\venv\Scripts\activate
+    ```
+4. **Instalar dependencias:**
+    Abre una terminal y ejecuta:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Stack Tecnologico (dependencias)
+
+Estas son algunas de las librerias que usamos para el proyecto:
+
+1. **Django: Framework web principal para el desarrollo del backend.**
+
+2. **Django REST Framework (DRF): Toolkit para construir la API Web de forma sencilla.**
+
+3. **Dotenv: Gestión de variables de entorno para seguridad (claves API, bases de datos).**
+
+4. **Requests: Librería para realizar peticiones HTTP a servicios externos.**
+
+5. **Cloudinary: Gestión y almacenamiento de imágenes en la nube (fotos de eventos).**
+
+6. **DRF-Spectacular: Generación automática de documentación para la API (OpenAPI 3.0).**
+
+7. **Colorama: Formateo de texto con colores en la terminal para mejores logs.**
 
 
+## Documentacion de la API
+<https://1drv.ms/w/c/246becb291048f35/IQCYvQsl41fPRqFlsqtsNbSCATdFd0ma0yERUQLDf7iRDT4?e=rz8bpA>
 
-   ## 📋 Solución de Problemas (FAQ)
+## Nombres y Cuentas
 
-Si encuentras algún error durante la ejecución, aquí tienes las soluciones más comunes:
-
-* **Error 429 (RESOURCE_EXHAUSTED):** - **Causa:** Has superado el límite de peticiones gratuitas de la API de Gemini.
-  - **Solución:** Espera 60 segundos antes de enviar otro mensaje o cambia el `modelo_id` a `gemini-1.5-flash` en el código.
-
-* **Error de Conexión (Connection Error):** - **Causa:** El asistente no puede comunicarse con la API de Django.
-  - **Solución:** Verifica que tu servidor backend esté corriendo en `http://127.0.0.1:8000`.
-
-* **ID de Evento no encontrado:** - **Causa:** El ID proporcionado no existe en Firebase.
-  - **Solución:** Primero ejecuta "Consultar mis tareas" para copiar el ID exacto (es una cadena de texto como `OZvDgeu...`).
-
-* **Error de Autenticación:** - **Causa:** Email o contraseña incorrectos.
-  - **Solución:** Revisa tus credenciales en la base de datos de Django.
-
-
-
-  ---
-
-## 🚀 Próximos Pasos (Mejoras Futuras)
-
-Para las siguientes versiones del asistente, el equipo tiene planeado:
-
-- [ ] **Notificaciones:** Implementar avisos automáticos al correo cuando se acerque la fecha de un evento.
-- [ ] **Interfaz Gráfica:** Crear una ventana con botones (usando Tkinter o CustomTkinter) para no depender solo de la consola.
-- [ ] **Soporte de Archivos:** Permitir que el usuario suba un PDF con su horario y que la IA extraiga los eventos automáticamente.
-- [ ] **Sincronización:** Conectar el backend con Google Calendar real para ver los cambios en el celular.
-- [ ] **Historial:** Guardar las conversaciones pasadas para que la IA recuerde eventos anteriores.
+1. **Felipe Mendieta : Splashscar**
+2. **Alexis Moreno: morenoalexis13724-sudo**
+3. **Sebastian Murcia : s3bastian-cmyk**
+4. **David Anzola : DavidAnzola05**
