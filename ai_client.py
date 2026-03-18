@@ -216,6 +216,13 @@ if token:
         try: 
             response = chat.send_message(user_input)
             print(f"{Fore.BLUE}IA: {Style.RESET_ALL}{response.text}")
+            print(f"\n{Fore.YELLOW}{'-'*60}{Style.RESET_ALL}")
+            
+        except Exception as e:
+            if "429" in str(e):
+                print(f"{Fore.RED}⌛ ERROR: has alcanzado el limite de mensajes. Espera un minuto.")
+            else:
+                print(f"{Fore.RED}✖️ ERROR en la comunicacion con la IA: {e}")
             
             
             print(f"\n{Fore.YELLOW}{'-'*60}{Style.RESET_ALL}") 
