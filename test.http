@@ -3,7 +3,7 @@ POST http://127.0.0.1:8000/api/auth/registro/
 Content-Type: application/json
 
 {
-    "email": "alixiscaco@gmail.com",
+    "email": "sebastian@gmail.com",
     "password": "1234567890"
 }
 
@@ -70,3 +70,13 @@ POST http://127.0.0.1:8000/api/perfil/foto/
 Authorization: Bearer {{token}}
 
 imagen=@avatar.jpg
+
+
+###
+POST http://127.0.0.1:8000/api/enviar-tareas/
+Content-Type: application/json
+Authorization: Bearer TU_TOKEN
+
+{
+  "correo": "destino@gmail.com"
+}
