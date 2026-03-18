@@ -6,4 +6,4 @@ Este proyecto es un asistente virtual inteligente que se conecta a una API de Dj
 * **Alexis [moreno]** - Documentador
 * **[Felipe Mendieta]** - UI/UX (Maquillador)
 * **[sebastian murciua]** - Desarrolladr IA (ERRORES)
-* **[David Anzola]** - Desarrollador (correo)
+* **[David Anzola]** - Desarrollador (CORREO📰)
