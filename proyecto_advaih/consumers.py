@@ -6,6 +6,8 @@ class NotificacionConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.group_name = "notificaciones"
 
+        print("🟢 Cliente conectado al WebSocket")
+
         await self.channel_layer.group_add(
             self.group_name,
             self.channel_name
@@ -14,12 +16,16 @@ class NotificacionConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
     async def disconnect(self, close_code):
+        print("🔴 Cliente desconectado")
+
         await self.channel_layer.group_discard(
             self.group_name,
             self.channel_name
         )
 
     async def enviar_notificacion(self, event):
+        print("📩 Notificación recibida en consumer")
+
         await self.send(text_data=json.dumps({
             "mensaje": event["mensaje"]
         }))
