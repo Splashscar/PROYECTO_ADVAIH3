@@ -21,7 +21,7 @@ Content-Type: application/json
 
 ### -------------------------------------------------------
 ### TOKEN DE USUARIO
-@token = eyJhbGciOiJSUzI1NiIsImtpZCI6IjczMmNhOTY3MTNiMWRkMTcyMzg1MDg0Y2U5ZjQzODFhZDAwY2VjZTQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJveWVjdG8tYWR2YWloIiwiYXVkIjoicHJveWVjdG8tYWR2YWloIiwiYXV0aF90aW1lIjoxNzczNjc2OTgwLCJ1c2VyX2lkIjoiRjUwaEJnUHJnblR1b0hGa2FEeW1zZXhWWk9nMiIsInN1YiI6IkY1MGhCZ1ByZ25UdW9IRmthRHltc2V4VlpPZzIiLCJpYXQiOjE3NzM2NzY5ODAsImV4cCI6MTc3MzY4MDU4MCwiZW1haWwiOiJhbGl4aXNjYWNvQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJhbGl4aXNjYWNvQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.Vdg3U17bXgq07V8DIrJUdbVqePwXjNBJ-WTbNHXH3TlIs-nXh9PeKX6_XmyzwSE-VLICNLCLDWeq7cFJ3qf3sSDM-Ba4w_rWc4Uio5LaecM91bWOD3v-0yRO37FrlBT0XK3UTNzawMS0i_fiFKm8c0q15TbokfzMjPPezWJSgw-wi2uCu--p0imI60hCYKeNv_TozvZVGqi0n94dqzEvh9sNAUzEhATlXIqTQp-06ZGP8d0-8BS2bPZrFIGgHBU7kkOkTMyciG7OkcD2juWIxE71pK8ElfJat9M24vUkA8zp_G3KL69BtmKcn8DRF1DRp0L60yDU5BwZv_1PkGMXVA
+@token = eyJhbGciOiJSUzI1NiIsImtpZCI6IjM3MzAwNzY5YTA3ZTA1MTE2ZjdlNTEzOGZhOTA5MzY4NWVlYmMyNDAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcHJveWVjdG8tYWR2YWloIiwiYXVkIjoicHJveWVjdG8tYWR2YWloIiwiYXV0aF90aW1lIjoxNzc0NDU2MDMyLCJ1c2VyX2lkIjoiRjUwaEJnUHJnblR1b0hGa2FEeW1zZXhWWk9nMiIsInN1YiI6IkY1MGhCZ1ByZ25UdW9IRmthRHltc2V4VlpPZzIiLCJpYXQiOjE3NzQ0NTYwMzIsImV4cCI6MTc3NDQ1OTYzMiwiZW1haWwiOiJhbGl4aXNjYWNvQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJhbGl4aXNjYWNvQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.cp5-SS91a8e5tKQuR2GXyu0LgrY2lyV68govay81fp9CmOQm16sss_fLmcFMUPN2cAsa1xyT9jkcJmRuo_LMZrSMuzru90LZLyDhRD_Hv2620LrL5VFgyEMPe_tUvRLeWmUuJH-t194H53aRpEpS3uUeHcMH-fn7-xRoCGool2_FlFalCEthQ9tmInTIWNyfj7Et5Ld9mMs-714VZyNECIW2wLf_EW2vLAj3Gg3RM7yZ6GZ0NqnOhUe_T3M3Oq11yUg7dQGeFObJsEOfEI-Ni88eZzVFx0EMTvz_Rum_K0QRTWoC_tMRedCv9zR_xL_zKRwAyB7DV85hh6ztLvcIpg
 
 ### 3. Crear un nuevo evento
 POST http://127.0.0.1:8000/api/eventos/
@@ -29,10 +29,10 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "titulo": "Evento de prueba (delete,prueba)",
+    "titulo": "Evento de prueba (notificaiiiiiiiicion232552222)",
     "descripcion": "Probando mi API con las nuevas vistas corregidas este sera para eliminar y probar",
     "fecha": "2026-03-30T10:00:00Z",
-    "lugar": "Centro de Mosquera sena sena"
+    "lugar": "Centro de Mosquera "
 }
 
 ### -------------------------------------------------------

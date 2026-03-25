@@ -33,6 +33,7 @@ class EventoAPIView(APIView):
             return Response({"error": str(e)}, status=500)
 
     def post(self, request):
+        print("entre al post")
         """ Crear nuevo evento """
         serializer = Eventoserializers(data=request.data)
         if serializer.is_valid():
@@ -40,7 +41,10 @@ class EventoAPIView(APIView):
             datos['usuario_id'] = request.user.uid
             datos['fecha_creacion'] = firestore.SERVER_TIMESTAMP
             
+            
             nuevo_doc = db.collection('proyecto ADVAIH').add(datos)
+            print("Enviando notificacion")
+
 
 
             #ENVIAR NOTIFICACION
