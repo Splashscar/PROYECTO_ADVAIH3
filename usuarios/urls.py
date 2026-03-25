@@ -5,6 +5,7 @@ from .views_perfil import PerfilImagenAPIView
 from .views_perfil import subir_foto_perfil
 from django.urls import path
 from .views import EnviarTareasEmailAPIView
+from .views_chat import ChatHistorialAPIView
 
 
 urlpatterns = [
@@ -18,4 +19,5 @@ urlpatterns = [
     path('perfil/foto/', PerfilImagenAPIView.as_view(), name='api_perfil_foto'),
     #correo
     path('enviar-tareas/', EnviarTareasEmailAPIView.as_view()),
+    path('chat/historial', ChatHistorialAPIView.as_view(), name='api_chat_historial')
 ]

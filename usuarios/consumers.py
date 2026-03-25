@@ -36,8 +36,24 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         async def chat_message(self, event):
             await self.send(text_data = json.dumps([
-                'mensaje' : event
+                'mensaje' : event['mensaje'],
+                'usuario' : event['usuario']
             ]))
+
+        @sync_to_async
+        def guardar_mensaje_firestore(self, uid_usuario, mensaje):
+            """
+            Funcion para interactuar con firestore sin interruempir el websocket
+            """
+            try:
+                db.collection('api_chat_mensajes').add({
+                    'usuario ' : uid_usuario,
+                    'mensaje' : mensaje,
+                    'timestamp' : firestore.SERVER_TIMESTAMPs
+
+                })
+            except Exception as e:
+                print(f"Error guardando mensaje en BD: {e}")
 
         
         
