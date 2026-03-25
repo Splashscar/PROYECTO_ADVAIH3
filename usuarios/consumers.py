@@ -35,10 +35,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
 
         async def chat_message(self, event):
-            await self.send(text_data = json.dumps([
+            await self.send(text_data = json.dumps)(({
                 'mensaje' : event['mensaje'],
                 'usuario' : event['usuario']
-            ]))
+            }))
 
         @sync_to_async
         def guardar_mensaje_firestore(self, uid_usuario, mensaje):
