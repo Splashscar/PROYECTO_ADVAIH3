@@ -3,7 +3,7 @@ POST http://127.0.0.1:8000/api/auth/registro/
 Content-Type: application/json
 
 {
-    "email": "sebastian@gmail.com",
+    "email": "sebastiana@gmail.com",
     "password": "1234567890"
 }
 
@@ -29,10 +29,10 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "titulo": "Evento de prueba (delete)",
-    "descripcion": "Probando mi API con las nuevas vistas corregidas este sera para eliminar",
+    "titulo": "Evento de prueba (delete,prueba)",
+    "descripcion": "Probando mi API con las nuevas vistas corregidas este sera para eliminar y probar",
     "fecha": "2026-03-30T10:00:00Z",
-    "lugar": "Centro de Mosquera"
+    "lugar": "Centro de Mosquera sena sena"
 }
 
 ### -------------------------------------------------------
@@ -80,3 +80,4 @@ Authorization: Bearer TU_TOKEN
 {
   "correo": "destino@gmail.com"
 }
+
