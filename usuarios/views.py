@@ -6,6 +6,9 @@ from .serializers import Eventoserializers
 from .authentication import firebaseAuthentication
 from proyecto_advaih.Firebase_config import initialize_firebase
 from firebase_admin import firestore
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+
 
 db = initialize_firebase()
 
@@ -38,6 +41,18 @@ class EventoAPIView(APIView):
             datos['fecha_creacion'] = firestore.SERVER_TIMESTAMP
             
             nuevo_doc = db.collection('proyecto ADVAIH').add(datos)
+
+
+            #ENVIAR NOTIFICACION
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)(
+                "notificaciones",  # 👈 mismo nombre
+                {
+                    "type": "enviar_notificacion",
+                    "mensaje": "Nuevo evento creado 🎉"
+                    }
+                )
+           
             return Response({"mensaje": "Creado", "id": nuevo_doc[1].id}, status=201)
         return Response(serializer.errors, status=400)
 

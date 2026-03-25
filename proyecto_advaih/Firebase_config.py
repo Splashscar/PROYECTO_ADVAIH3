@@ -11,7 +11,7 @@ def initialize_firebase():
 
             base_dir = os.path.dirname(os.path.abspath(__file__))
 
-            file_name = os.getenv('FIREBASE_ADMIN_KEY')
+            file_name = "firebase-key.json"
             print(f"nombre del archivo: {file_name} basedir: {base_dir}")
 
             print(f"🔍 Buscando archivo de credenciales en: {os.path.join(base_dir, file_name)}")

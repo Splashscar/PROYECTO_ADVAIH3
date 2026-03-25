@@ -10,7 +10,7 @@ from proyecto_advaih.Firebase_config import initialize_firebase
 
 db = initialize_firebase()
 
-class ChatHistorialAPIView():
+class ChatHistorialAPIView(APIView):
     authentication_classes = [firebaseAuthentication]
     permisson_classes = [IsAuthenticated]
 
