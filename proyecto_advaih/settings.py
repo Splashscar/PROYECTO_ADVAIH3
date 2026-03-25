@@ -33,18 +33,17 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'daphne',
-    'channels',
-    'corssheaders',
     'rest_framework',
     'proyecto_advaih',
-    'drf_spectacular'
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -74,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'proyecto_advaih.wsgi.application'
+ASGI_APPLICATION = 'proyecto_advaih.asgi.application'
 
 
 # Database
@@ -139,3 +138,10 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'davidanzolacs@gmail.com'
 EMAIL_HOST_PASSWORD = 'shoc ifdv idef kiwd'
+
+
+CHANNEL_LAYERS = {
+    "default":{
+        "BACKEND" : "channels.layers.InMemoryChannelLayer"
+    }
+}
