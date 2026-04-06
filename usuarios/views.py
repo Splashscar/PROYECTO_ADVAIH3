@@ -145,3 +145,51 @@ class EnviarTareasEmailAPIView(APIView):
 
         except Exception as e:
             return Response({"error": str(e)}, status=500)
+        
+
+class EstadisticasAPIView(APIView):
+    authentication_classes = [firebaseAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """
+        calcular el resulen de las tareas para mostrar en el frontend
+        """
+        rol = request.user.rol
+        uid_usuario = request.user.uid
+        if rol == 'Administrador':
+            docs == db.collection('proyecto ADVAIH').stream()
+        else:
+            docs = db.collection('proyecto ADVAIH').where('usuario_id', '==', uid_usuario).stream()
+
+        #2. iniciarlizar las variables
+        total = 0
+        completadas = 0
+        en_proceso = 0
+        pendientes = 0
+
+        #3. procesar los datos
+        for doc in docs:
+            total += 1
+            data = doc.to_dict()
+            estado = data.get('estado', 'Pendiente').lower()
+
+            if 'completada' in estado or 'terminada' in estado:
+                completadas += 1
+            elif 'proceso' in estado:
+                en_proceso += 1
+            else:
+                pendientes += 1
+
+        #4. calcular porcentajes
+        if total > 0:
+            porcentaje = int((completadas / total) * 100)
+        else: 
+            porcentaje = 0
+        return Response({
+            "total": total,
+            "completadas": completadas,
+            "en_proceso": en_proceso,
+            "pendientes": pendientes,
+            "porcentaje_completadas": porcentaje
+        }, status=200)
